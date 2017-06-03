@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'No Title') - Laravel Album</title>
+    <title>@yield('title', 'No Title') - Album</title>
     <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
     <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
@@ -24,7 +24,7 @@
             <span class="icon-bar"></span>
           </button>
           <!-- LOGO 首页跳转按钮 -->
-          <a class="navbar-brand" href="{{ route('home') }}">Laravel Album</a>
+          <a class="navbar-brand" href="{{ route('home') }}"> Album</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
