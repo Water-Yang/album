@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Album;
 
 class AlbumsController extends Controller
@@ -32,6 +33,16 @@ class AlbumsController extends Controller
     }
     //更新相册的数据
     public function update(Request $request,$id){
+    	
+    		$file = $request->file('cover');
+    		//文件是否成功
+    		if($file->isValid()){
+    			$realpath = $file->getRealPath();
+    			$ext = $file->getClientOriginalExtension();
+    			$filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
+    			$bool=Storage::disk('uploads')->put($filename,file_get_contents($realpath));
+    		}
+    	
     	$this->validate($request,[
     			'name'=>'required|max:50',
     		]);
@@ -40,8 +51,10 @@ class AlbumsController extends Controller
     	$album->update([
     			'name'=>$request->name,
     			'intro'=>$request->intro,
+    			'cover'=>'uploads/'.$filename,
     		]);
-    	session()->flash('success','edit successful');
+
+    	//session()->flash('success','edit successful');
     	return back();
     }
     //删除数据

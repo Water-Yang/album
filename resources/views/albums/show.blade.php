@@ -10,7 +10,7 @@
 		@if($album->cover=='')
 		<img class="img-responsive" src="{{URL::asset('img/covers/default.jpg')}}">
 		@else
-		<img  class='img-responsive' src="{{$album->cover}}">
+		<img  class='img-responsive' src="{{URL::asset($album->cover)}}">
 		@endif
 	</div>
 	<div class="col-sm-9">
@@ -25,7 +25,7 @@
 			Edit Album
 		</button>
 		<!-- 删除相册弹出框 -->
-		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAlbum">
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target='#deleteAlbum'>
 			Delete Album
 		</button>
 	</div>
@@ -54,17 +54,24 @@
                 <input type="text" class="form-control" id="intro" name="intro" value="{{ $album->intro }}">
               </div>
             </div>
-            <!-- 封面图片上传接口 -->
+             <!-- 封面图片上传接口 -->
+              <div class="form-group">
+                <label for="intro" class="col-sm-2 control-label">Cover picture</label>
+                <div class="col-sm-10">
+                  <input type="file" name="cover">
+                </div>
+            </div>
+
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Edit</button>
               </div>
             </div>
-          </form>
-      </div>
+        </form>
+     </div>
     </div>
-  </div>
+</div>
 </div>
 <!-- 删除相册：弹出框 -->
 <div class="modal fade" id="deleteAlbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
