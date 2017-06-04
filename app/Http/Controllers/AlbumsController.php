@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Album;
+use App\Photo;
 
 class AlbumsController extends Controller
 {
@@ -28,8 +29,8 @@ class AlbumsController extends Controller
     //获取相册数据
     public function show($id){
     	$album = Album::findOrFail($id);
-
-    	return view('albums.show',compact('album'));
+        $photos = $album->photos()->paginate(20);
+    	return view('albums.show',compact(['album','photos']));
     }
     //更新相册的数据
     public function update(Request $request,$id){

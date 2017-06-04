@@ -17,7 +17,7 @@
 		<h2>{{$album->name}}</h2>
 		<p>{{$album->intro}}</p>
 		<!-- 上传照片弹窗 -->
-		<button type="button" class="btn btn-primary">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target='#uploadPhoto'>
 			upload photo
 		</button>
 		<!-- 编辑相册弹出框 -->
@@ -30,6 +30,14 @@
 		</button>
 	</div>
 </div>
+<hr>
+<div class="row masonry">
+	@each('shared.photo',$photos,'photo');
+</div>
+
+
+
+
 <!-- 编辑相册：弹出框 -->
 <div class="modal fade" id="editAlbum" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -93,6 +101,46 @@
   </div>
 </div>
 
+<!-- 上传照片：弹出框 -->
+<div class="modal fade" id="uploadPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Photo</h4>
+      </div>
+      <div class="modal-body">
+          <form action="{{ route('photo.store') }}" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <input type="hidden" name="album_id" value="{{ $album->id }}">
+            <div class="form-group">
+              <input type="file" name="photo" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Click here to add a title for this photo">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="intro" placeholder="Click here to add an introduction for this photo">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+
+@endsection
+@section('script')
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<!--瀑布流-->
+<script>
+$('.masonry').imagesLoaded(function() {
+    $('.masonry').masonry({
+    itemSelector: '.item'
+    });
+});
+</script>
 @endsection
